@@ -2,22 +2,20 @@
 
 int main()
 {
-    int n, i;
+    int n;
 
-    if (scanf("%d", &n) != 1)
-    {
-        return 1;
-    }
+    scanf("%d", &n);
+
     if (n <= 0)
     {
-        printf("Error");
+        printf("error\n");
         return 1;
     }
 
-    for (i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        A
-            printf("Hello Loop!\n");
+        printf("Hello World\n");
     }
+
     return 0;
 }
