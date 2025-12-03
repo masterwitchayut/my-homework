@@ -1,49 +1,35 @@
 #include <stdio.h>
 
-void GetMatrix(int value[], int *row, int *col)
-{
-    int m, n;
+int GetMatrix(int *row, int *col) {
+    int i, n;
+    int a[20][20];
 
-    printf("Enter rows (m): ");
+    printf("Enter row: ");
     scanf("%d", row);
-    m = *row;
-
-    printf("Enter cols (n): ");
+    printf("Enter col: ");
     scanf("%d", col);
-    n = *col;
 
-    printf("Enter elements (%d x %d):\n", m, n);
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            int index = i * n + j;
-
-            printf("Element [%d][%d]: ", i, j);
-            scanf("%d", &value[index]);
+    printf("Input matrix:\n");
+    for(i = 0; i < *row; i++) {
+        for(n = 0; n < *col; n++) {
+            printf("a[%d][%d] = ", i, n);
+            scanf("%d", &a[i][n]);
         }
     }
+
+    printf("\nMatrix:\n");
+    for(i = 0; i < *row; i++) {
+        for(n = 0; n < *col; n++) {
+            printf("%d ", a[i][n]);
+        }
+        printf("\n");
+    }
+
+    return 0;
 }
 
-int main()
-{
-    int data[100];
+int main() {
     int m, n;
-
-    GetMatrix(data, &m, &n);
-
-    if (m > 0 && n > 0 && m * n <= 100)
-    {
-        printf("\n--- Result Matrix ---\n");
-        for (int i = 0; i < m; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                printf("%4d", data[i * n + j]);
-            }
-            printf("\n");
-        }
-    }
-
+    GetMatrix(&m, &n);
     return 0;
 }
