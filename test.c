@@ -1,7 +1,17 @@
 #include <stdio.h>
 
 int main() {
-  // printf() จะแสดงข้อความที่อยู่ภายในเครื่องหมายคำพูด
-  printf("Hello, World!\\n");
-  return 0;
+ 
+    int n;
+ 
+    int i;
+
+    printf("ต้องการให้แสดง 'Hello World' กี่บรรทัด? (ป้อนตัวเลข n): ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("Hello World\n");
+    }
+
+    return 0;
 }
