@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-int GetMatrix(int *row, int *col) {
+int GetMatrix(int *row, int *col)
+{
     int i, n;
     int a[20][20];
 
@@ -10,16 +11,20 @@ int GetMatrix(int *row, int *col) {
     scanf("%d", col);
 
     printf("Input matrix:\n");
-    for(i = 0; i < *row; i++) {
-        for(n = 0; n < *col; n++) {
+    for (i = 0; i < *row; i++)
+    {
+        for (n = 0; n < *col; n++)
+        {
             printf("a[%d][%d] = ", i, n);
             scanf("%d", &a[i][n]);
         }
     }
 
     printf("\nMatrix:\n");
-    for(i = 0; i < *row; i++) {
-        for(n = 0; n < *col; n++) {
+    for (i = 0; i < *row; i++)
+    {
+        for (n = 0; n < *col; n++)
+        {
             printf("%d ", a[i][n]);
         }
         printf("\n");
@@ -28,8 +33,11 @@ int GetMatrix(int *row, int *col) {
     return 0;
 }
 
-int main() {
-    int m, n;
-    GetMatrix(&m, &n);
+int main()
+{
+    int data, m, n;
+
+    data = GetMatrix(&m, &n);
+
     return 0;
 }
