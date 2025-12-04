@@ -4,16 +4,15 @@ int *GetSet(int *num);
 
 int main()
 {
-    int *data;
-    int num;
+    int N;
+    int *data = GetSet(&N);
 
-    data = GetSet(&num);
+    printf("\nN: %d\n", N);
 
-    printf("N: %d\n", num);
-
-    if (num > 0)
+    if (N > 0)
     {
-        for (int i = 0; i < num; i++)
+        printf("Data: ");
+        for (int i = 0; i < N; i++)
         {
             printf("%d ", data[i]);
         }
@@ -25,10 +24,10 @@ int main()
 
 int *GetSet(int *num)
 {
-    static int data_array[100];
+    static int data[100];
     int N;
 
-    printf("Enter N (max 100): ");
+    printf("Enter Number (1-100): ");
 
     if (scanf("%d", &N) != 1 || N <= 0 || N > 100)
     {
@@ -39,14 +38,13 @@ int *GetSet(int *num)
     printf("Enter %d integers:\n", N);
     for (int i = 0; i < N; i++)
     {
-        if (scanf("%d", &data_array[i]) != 1)
+        if (scanf("%d", &data[i]) != 1)
         {
-            N = i;
-            break;
+            *num = i;
+            return data;
         }
     }
 
     *num = N;
-
-    return data_array;
+    return data;
 }
