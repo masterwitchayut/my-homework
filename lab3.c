@@ -2,8 +2,7 @@
 
 int *GetSet(int *num);
 
-int main()
-{
+int main(){
     int N;
     int *data = GetSet(&N);
 
