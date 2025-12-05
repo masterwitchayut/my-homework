@@ -25,18 +25,17 @@ int main()
 int *GetSet(int *num)
 {
     static int data[100];
-    int N;
 
     printf("Enter Number (1-100): ");
 
-    if (scanf("%d", &N) != 1 || N <= 0 || N > 100)
+    if (scanf("%d", num) != 1 || *num <= 0 || *num > 100)
     {
         *num = 0;
         return NULL;
     }
 
-    printf("Enter %d integers:\n", N);
-    for (int i = 0; i < N; i++)
+    printf("Enter %d integers:\n", *num);
+    for (int i = 0; i < *num; i++)
     {
         if (scanf("%d", &data[i]) != 1)
         {
@@ -45,6 +44,5 @@ int *GetSet(int *num)
         }
     }
 
-    *num = N;
     return data;
 }
