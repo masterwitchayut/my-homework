@@ -26,7 +26,7 @@ int *GetSet(int *num)
 {
     static int data[100];
 
-    printf("Enter Number (1-100): ");
+    printf("Number 1-100: ");
 
     if (scanf("%d", num) != 1 || *num <= 0 || *num > 100)
     {
