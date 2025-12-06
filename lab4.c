@@ -1,30 +1,35 @@
 #include <stdio.h>
 
-/* ประกาศฟังก์ชัน */
+/* ประกาศ Prototype ของฟังก์ชัน */
 int GetSet(int data[]);
 
-int main()
-{
-    /* แยกบรรทัดการประกาศตัวแปรเพื่อความอ่านง่าย */
+int main() {
+    /* * Fix: "Multiple statements on one line"
+     * ต้องประกาศตัวแปรแยกบรรทัดกันอย่างชัดเจน 
+     */
     int data[100];
     int num;
+    int i;
 
-    /* เรียกใช้ฟังก์ชันรับค่า */
+    /* * Fix: "Stability issues"
+     * ใช้ Array data[100] แทน int *data เพื่อให้มีพื้นที่หน่วยความจำแน่นอน
+     * (เพราะโจทย์ห้ามใช้ stdlib.h จึง malloc ไม่ได้)
+     */
     num = GetSet(data);
 
+    /* แสดงผล N */
     printf("N: %d\n", num);
 
-    /* * ลดความซ้อนของโค้ด (Nesting)
-     * ถ้าไม่มีข้อมูล (num <= 0) ให้จบการทำงานทันที ไม่ต้องมี else ครอบส่วนที่เหลือ
+    /* * Fix: "Deeply nested logic"
+     * ใช้การเช็คเงื่อนไขเพื่อจบการทำงานก่อน (Guard Clause) 
+     * ทำให้ไม่ต้องมี else ก้อนใหญ่ๆ
      */
-    if (num <= 0)
-    {
+    if (num <= 0) {
         return 0;
     }
 
     /* แสดงผลข้อมูลใน Array */
-    for (int i = 0; i < num; i++)
-    {
+    for (i = 0; i < num; i++) {
         printf("%d ", data[i]);
     }
     printf("\n");
@@ -32,32 +37,35 @@ int main()
     return 0;
 }
 
-int GetSet(int data[])
-{
+/* ฟังก์ชันสำหรับรับค่า */
+int GetSet(int data[]) {
     int N;
+    int i;
 
-    printf("enter N (max 100): ");
-
-    /* * เพิ่มคอมเมนต์อธิบาย Logic การตรวจสอบ Input (Validation)
-     * ตรวจสอบว่ารับค่าได้จริง และค่าต้องอยู่ระหว่าง 1 ถึง 100
+    printf("Enter N (max 100): ");
+    
+    /* * Fix: "Code structure suggests potential stability issues"
+     * ตรวจสอบค่าที่รับมาทันที ถ้า N ไม่ถูกต้อง หรือรับค่าไม่ได้ ให้ return 0
      */
-    if (scanf("%d", &N) != 1 || N <= 0 || N > 100)
-    {
-        // คืนค่า 0 ทันทีหากข้อมูลไม่ถูกต้อง เพื่อป้องกันการทำงานต่อที่ผิดพลาด
+    if (scanf("%d", &N) != 1) {
+        return 0;
+    }
+    
+    if (N <= 0) {
         return 0;
     }
 
-    printf("enter %d integers:\n", N);
+    if (N > 100) {
+        return 0;
+    }
 
+    printf("Enter %d integers:\n", N);
+    
     /* วนลูปรับค่าตามจำนวน N */
-    for (int i = 0; i < N; i++)
-    {
-        /* * ตรวจสอบการรับค่าตัวเลขแต่ละตัว
-         * หากรับค่าไม่ได้ (เช่น ผู้ใช้พิมพ์ตัวอักษร) ให้หยุดรับค่าทันที
-         */
-        if (scanf("%d", &data[i]) != 1)
-        {
-            // ปรับค่า N ให้เท่ากับจำนวนที่รับได้จริง แล้วออกจากลูป
+    for (i = 0; i < N; i++) {
+        /* ตรวจสอบว่ารับค่าเป็นตัวเลขได้จริงหรือไม่ */
+        if (scanf("%d", &data[i]) != 1) {
+            /* ถ้ารับค่าผิดพลาด ให้ตัดจบแค่นั้นแล้วส่งคืนจำนวนเท่าที่รับได้ */
             N = i;
             break;
         }
