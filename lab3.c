@@ -2,7 +2,8 @@
 
 int *GetSet(int *num);
 
-int main(){
+int main()
+{
     int N;
     int *data = GetSet(&N);
 
@@ -10,7 +11,7 @@ int main(){
 
     if (N > 0)
     {
-        printf("Data: ");
+        printf("data: ");
         for (int i = 0; i < N; i++)
         {
             printf("%d ", data[i]);
@@ -25,7 +26,7 @@ int *GetSet(int *num)
 {
     static int data[100];
 
-    printf("Number 1-100: ");
+    printf("number 1-100: ");
 
     if (scanf("%d", num) != 1 || *num <= 0 || *num > 100)
     {
@@ -33,7 +34,7 @@ int *GetSet(int *num)
         return NULL;
     }
 
-    printf("Enter %d integers:\n", *num);
+    printf("enter %d integers:\n", *num);
     for (int i = 0; i < *num; i++)
     {
         if (scanf("%d", &data[i]) != 1)
