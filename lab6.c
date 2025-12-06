@@ -1,19 +1,30 @@
 #include <stdio.h>
 
-int GetMatrix(int *row, int *col)
+int GetMatrix(int *row, int *col) 
 {
-    int i, n;
-    int a[20][20];
+    int i;
+    int n; 
+    
+    int a[20][20]; 
 
     printf("Enter row: ");
     scanf("%d", row);
+
     printf("Enter col: ");
     scanf("%d", col);
 
-    printf("Input matrix:\n");
-    for (i = 0; i < *row; i++)
+    if (*row <= 0 || *col <= 0 || *row > 20 || *col > 20)
     {
-        for (n = 0; n < *col; n++)
+        printf("Error: Matrix size out of bounds (Max 20x20).\n");
+        *row = 0;
+        *col = 0;
+        return 0;
+    }
+
+    printf("Input matrix:\n");
+    for(i = 0; i < *row; i++) 
+    {
+        for(n = 0; n < *col; n++) 
         {
             printf("a[%d][%d] = ", i, n);
             scanf("%d", &a[i][n]);
@@ -21,9 +32,9 @@ int GetMatrix(int *row, int *col)
     }
 
     printf("\nMatrix:\n");
-    for (i = 0; i < *row; i++)
+    for(i = 0; i < *row; i++) 
     {
-        for (n = 0; n < *col; n++)
+        for(n = 0; n < *col; n++) 
         {
             printf("%d ", a[i][n]);
         }
@@ -33,11 +44,12 @@ int GetMatrix(int *row, int *col)
     return 0;
 }
 
-int main()
+int main() 
 {
-    int data, m, n;
-
-    data = GetMatrix(&m, &n);
-
+    int m;
+    int n;
+    
+    GetMatrix(&m, &n);
+    
     return 0;
 }
