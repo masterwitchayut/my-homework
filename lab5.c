@@ -1,48 +1,55 @@
 #include <stdio.h>
 
-void GetMatrix(int value[], int *row, int *col)
+void GetMatrix(int matrixData[], int *Rows, int *Cols)
 {
-    int m, n;
-
+    int rows, cols, i, j;
+    
     printf("Enter rows (m): ");
-    scanf("%d", row);
-    m = *row;
+    scanf("%d", Rows);
+    rows = *Rows;
 
     printf("Enter cols (n): ");
-    scanf("%d", col);
-    n = *col;
+    scanf("%d", Cols);
+    cols = *Cols;
 
-    printf("Enter elements (%d x %d):\n", m, n);
-    for (int i = 0; i < m; i++)
+    if (rows <= 0 || cols <= 0 || (rows * cols) > 100)
     {
-        for (int j = 0; j < n; j++)
-        {
-            int index = i * n + j;
+        printf("Error: Matrix size out of bounds.\n");
+        *Rows = 0;
+        *Cols = 0;
+        return; 
+    }
 
+    printf("Enter elements (%d x %d):\n", rows, cols);
+    
+    for (i = 0; i < rows; i++)
+    {
+        for (j = 0; j < cols; j++)
+        {
             printf("Element [%d][%d]: ", i, j);
-            scanf("%d", &value[index]);
+            scanf("%d", &matrixData[(i * cols) + j]);
         }
     }
 }
 
 int main()
 {
-    int data[100];
-    int m, n;
+    int matrixData[100];
+    int rows, cols, i, j;
 
-    GetMatrix(data, &m, &n);
+    GetMatrix(matrixData, &rows, &cols);
 
-    if (m > 0 && n > 0 && m * n <= 100)
+    if (rows <= 0 || cols <= 0) return 0;
+
+    printf("\n--- Result Matrix ---\n");
+    
+    for (i = 0; i < rows; i++)
     {
-        printf("\n--- Result Matrix ---\n");
-        for (int i = 0; i < m; i++)
+        for (j = 0; j < cols; j++)
         {
-            for (int j = 0; j < n; j++)
-            {
-                printf("%4d", data[i * n + j]);
-            }
-            printf("\n");
+            printf("%4d", matrixData[(i * cols) + j]);
         }
+        printf("\n");
     }
 
     return 0;
