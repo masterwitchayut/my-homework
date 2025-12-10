@@ -1,32 +1,47 @@
 #include <stdio.h>
-#include <string.h>
+#include <string.h> // ต้อง import อันนี้ ไม่งั้นใช้ strlen ไม่ได้ครับ
 
+// ฟังก์ชันสำหรับกลับด้าน: รับตัวต้นฉบับ (str1) และตัวว่างๆ มารอรับ (str2)
 void reverse(char str1[], char str2[])
 {
+    // หาความยาวของคำก่อน จะได้รู้ว่า "ตัวสุดท้าย" มันอยู่ตำแหน่งไหน
     int len = strlen(str1);
     int i, j;
 
+    // ลูปนี้คือหัวใจหลัก:
+    // i = เริ่มที่ตัวสุดท้ายของคำเก่า (len - 1)
+    // j = เริ่มที่ช่องแรกของคำใหม่ (0)
+    // วนลูปโดยถอยหลัง i ลงเรื่อยๆ และขยับ j ไปข้างหน้า
     for (i = len - 1, j = 0; i >= 0; i--, j++)
     {
-        str2[j] = str1[i];
+        str2[j] = str1[i]; // หยิบตัวที่ i ของเก่า มาแปะใส่ช่องที่ j ของใหม่
     }
 
+    // *** สำคัญมาก ***
+    // ต้องปิดท้ายสตริงด้วย '\0' (Null Character)
+    // เพื่อบอกคอมพิวเตอร์ว่า "จบประโยคตรงนี้นะ" ไม่งั้นจะมีตัวอักษรขยะตามมา
     str2[len] = '\0';
 }
 
 int main()
 {
-    char text[50] = "I Love You";
-    char out[50];
-    reverse(text, out);
-    printf("Input: \"%s\"\n", text);
-    printf("Output: \"%s\"\n\n", out);
+    // --- ทดสอบรอบที่ 1 ---
+    char text[50] = "I Love You"; // สร้างคำตั้งต้น
+    char out[50];                 // จองที่ว่างๆ ไว้รอรับผลลัพธ์ (เผื่อที่ไว้เยอะหน่อยกันพลาด)
 
+    reverse(text, out);           // ส่งคำตั้งต้น กับกล่องเปล่า เข้าฟังก์ชัน
+
+    printf("Input: \"%s\"\n", text);
+    printf("Output: \"%s\"\n\n", out); // ผลที่ได้ต้องเป็น uoY evoL I
+
+    // --- ทดสอบรอบที่ 2 ---
     char text2[50] = "Hello World";
     char out2[50];
-    reverse(text2, out2);
-    printf("Input: \"%s\"\n", text2);
-    printf("Output: \"%s\"\n", out2);
 
-    return 0;
+    reverse(text2, out2);
+    
+    printf("Input: \"%s\"\n", text2);
+    printf("Output: \"%s\"\n", out2); // ผลที่ได้ต้องเป็น dlroW olleH
+
+    return 0; // จบโปรแกรม ส่งคืนค่า 0 บอกว่าทำงานเรียบร้อย
 }
