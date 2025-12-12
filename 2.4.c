@@ -1,49 +1,57 @@
 #include <stdio.h>
 #include <string.h>
 
-void explode(char str1[], char str2[][50], char splitter, int *count)
-{
-    int i = 0;
-    int row = 0;
-    int col = 0;
+// ประกาศฟังก์ชันตามโจทย์กำหนด (แก้ลำดับตัวแปรและขนาด array ให้ตรงรูป)
+void explode( char str1[], char splitter, char str2[][10], int *count );
 
-    while (str1[i] != '\0')
-    {
-        if (str1[i] == splitter)
-        {
+int main() {
+    // จองตัวแปรตามโจทย์ (ในรูป main ใช้ชื่อ out และมีตัวแปรรับจำนวนเต็ม)
+    char out[20][10]; 
+    int num = 0;
+
+    // เรียกฟังก์ชัน ส่งค่าตามโจทย์ "I/Love/You" และตัวคั่น '/'
+    explode("I/Love/You", '/', out, &num);
+
+    // ส่วนแสดงผล (เขียนแบบนักเรียนเพื่อเช็คคำตอบ)
+    printf("count = %d\n", num);
+    for(int i = 0; i < num; i++) {
+        printf("str2[%d] = \"%s\"\n", i, out[i]);
+    }
+
+    return 0;
+}
+
+// ส่วนของฟังก์ชัน
+void explode( char str1[], char splitter, char str2[][10], int *count ) {
+    int i = 0;      // ตัววิ่งสำหรับ str1
+    int row = 0;    // แถวของ str2 (คำที่เท่าไหร่)
+    int col = 0;    // ตำแหน่งตัวอักษรในคำนั้นๆ
+
+    // วนลูปทีละตัวจนกว่าจะจบข้อความ
+    while(str1[i] != '\0') {
+        
+        // ตรวจสอบว่าเป็นตัวคั่น (splitter) หรือไม่?
+        if(str1[i] == splitter) {
+            // ถ้าเจอตัวคั่น ให้ปิดท้ายคำเก่าด้วย \0 เพื่อให้เป็น string ที่สมบูรณ์
             str2[row][col] = '\0';
+            
+            // ขยับไปเก็บคำถัดไป (ขึ้นบรรทัดใหม่)
             row++;
+            
+            // เริ่มต้นตัวอักษรตัวแรกของคำใหม่
             col = 0;
-        }
-        else
-        {
+        } else {
+            // ถ้าไม่ใช่ตัวคั่น ให้ก๊อปปี้ตัวอักษรลงไปเก็บไว้
             str2[row][col] = str1[i];
             col++;
         }
-        i++;
+        
+        i++; // ขยับไปตัวถัดไปใน str1
     }
 
+    // เมื่อจบลูป ต้องปิดท้ายคำสุดท้ายด้วย \0 เสมอ
     str2[row][col] = '\0';
 
+    // ส่งค่าจำนวนคำกลับไป (จำนวนแถว + 1)
     *count = row + 1;
-}
-
-int main()
-{
-    char str1[] = "I/Love/You";
-    char splitter = '/';
-
-    char str2[10][50];
-    int count = 0;
-
-    explode(str1, str2, splitter, &count);
-
-    for (int k = 0; k < count; k++)
-    {
-        printf("str2[%d] = \"%s\"\n", k, str2[k]);
-    }
-
-    printf("\ncount = %d\n", count);
-
-    return 0;
 }
