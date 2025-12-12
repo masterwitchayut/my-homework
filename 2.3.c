@@ -46,10 +46,9 @@ void explode(char str1[], char splitter, char str2[][10], int *count)
         }
         else
         {
-            // ถ้าไม่ใช่ตัวคั่น ให้ก๊อปปี้ตัวอักษรลงไป
             str2[row][col] = str1[i];
-            F
-                col++;
+
+            col++;
         }
         i++; // ขยับไปตัวถัดไปของ str1
     }
