@@ -17,7 +17,7 @@ char *reverse(char *dest, const char str1[])
         dest[j] = str1[i]; // คัดลอกตัวอักษรจาก str1 ไปยัง dest ในลำดับย้อนกลับ
     }
 
-    dest[len] = '\0'; // ปิดท้ายด้วย Null-terminator
+    dest[len] = '\0';
 
     return dest;
 }
