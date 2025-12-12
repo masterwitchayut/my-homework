@@ -45,7 +45,7 @@ int main()
     printf("Input: \"%s\"\n", text2);
     if (out2 != NULL)
     {
-        printf("Output: \"%s\"\n", out2); // Output: "dlroW olleH"
+        printf("Output: \"%s\"\n", out2);
     }
     else
     {
