@@ -1,57 +1,62 @@
 #include <stdio.h>
 #include <string.h>
 
-// ประกาศฟังก์ชันตามโจทย์กำหนด (แก้ลำดับตัวแปรและขนาด array ให้ตรงรูป)
-void explode( char str1[], char splitter, char str2[][10], int *count );
+void explode(char str1[], char splitter, char str2[][10], int *count);
 
 int main() {
-    // จองตัวแปรตามโจทย์ (ในรูป main ใช้ชื่อ out และมีตัวแปรรับจำนวนเต็ม)
-    char out[20][10]; 
-    int num = 0;
+    // 1. ประกาศตัวแปร
+    char out[20][10]; // เก็บผลลัพธ์ (สูงสุด 20 คำ, คำละไม่เกิน 10 ตัวอักษร)
+    int num = 0;      // เก็บจำนวนคำที่ตัดได้
 
-    // เรียกฟังก์ชัน ส่งค่าตามโจทย์ "I/Love/You" และตัวคั่น '/'
+    // 2. เรียกใช้งานฟังก์ชัน
+    // Input: "I/Love/You", ตัวตัด: '/'
     explode("I/Love/You", '/', out, &num);
 
-    // ส่วนแสดงผล (เขียนแบบนักเรียนเพื่อเช็คคำตอบ)
-    printf("count = %d\n", num);
-    for(int i = 0; i < num; i++) {
-        printf("str2[%d] = \"%s\"\n", i, out[i]);
+    // 3. แสดงผลลัพธ์
+    printf("Total words: %d\n", num);
+    printf("--------------------\n");
+    
+    for (int i = 0; i < num; i++) {
+        printf("Word %d: \"%s\"\n", i + 1, out[i]);
     }
 
     return 0;
 }
 
-// ส่วนของฟังก์ชัน
-void explode( char str1[], char splitter, char str2[][10], int *count ) {
-    int i = 0;      // ตัววิ่งสำหรับ str1
-    int row = 0;    // แถวของ str2 (คำที่เท่าไหร่)
-    int col = 0;    // ตำแหน่งตัวอักษรในคำนั้นๆ
+// --- Function Definition ---
+void explode(char str1[], char splitter, char str2[][10], int *count) {
+    int idx = 0;        // ตำแหน่งตัวอักษรใน str1 (Source)
+    int word_idx = 0;   // ดัชนีของคำใน str2 (Row)
+    int char_idx = 0;   // ดัชนีตัวอักษรของคำปัจจุบัน (Col)
 
-    // วนลูปทีละตัวจนกว่าจะจบข้อความ
-    while(str1[i] != '\0') {
-        
-        // ตรวจสอบว่าเป็นตัวคั่น (splitter) หรือไม่?
-        if(str1[i] == splitter) {
-            // ถ้าเจอตัวคั่น ให้ปิดท้ายคำเก่าด้วย \0 เพื่อให้เป็น string ที่สมบูรณ์
-            str2[row][col] = '\0';
+    // วนลูปจนกว่าจะเจอจุดจบของ String (\0)
+    while (str1[idx] != '\0') {
+
+        if (str1[idx] == splitter) {
+            // Case 1: เจอตัวคั่น (Splitter)
+            // ปิดท้ายคำเก่าด้วย Null Terminator เพื่อให้เป็น String ที่สมบูรณ์
+            str2[word_idx][char_idx] = '\0';
             
-            // ขยับไปเก็บคำถัดไป (ขึ้นบรรทัดใหม่)
-            row++;
+            // ขยับไปคำถัดไป (บรรทัดใหม่) และรีเซ็ตตำแหน่งตัวอักษร
+            word_idx++;
+            char_idx = 0;
+        } 
+        else {
+            // Case 2: เป็นตัวอักษรปกติ
+            // คัดลอกตัวอักษรลงในอาเรย์
+            str2[word_idx][char_idx] = str1[idx];
             
-            // เริ่มต้นตัวอักษรตัวแรกของคำใหม่
-            col = 0;
-        } else {
-            // ถ้าไม่ใช่ตัวคั่น ให้ก๊อปปี้ตัวอักษรลงไปเก็บไว้
-            str2[row][col] = str1[i];
-            col++;
+            // ขยับตำแหน่งตัวอักษรไปตัวถัดไป
+            char_idx++;
         }
-        
-        i++; // ขยับไปตัวถัดไปใน str1
+
+        // ขยับ index ของข้อความต้นฉบับ
+        idx++;
     }
 
-    // เมื่อจบลูป ต้องปิดท้ายคำสุดท้ายด้วย \0 เสมอ
-    str2[row][col] = '\0';
+    // เมื่อจบลูป ต้องปิดท้ายคำสุดท้ายด้วย \0 เสมอ (เพราะลูปจบก่อนจะได้ใส่)
+    str2[word_idx][char_idx] = '\0';
 
-    // ส่งค่าจำนวนคำกลับไป (จำนวนแถว + 1)
-    *count = row + 1;
+    // ส่งค่าจำนวนคำกลับไป (Index เริ่มที่ 0 จึงต้อง +1)
+    *count = word_idx + 1;
 }
