@@ -11,8 +11,7 @@ int main() {
 
     switch (zoneCode) {
 
-        /* Zone 1 : Local */
-        case 1:
+        case 1:   /* Local */
             if (weight_kg <= 5.0) {
                 totalCost = 50.0;
             } else {
@@ -20,8 +19,7 @@ int main() {
             }
             break;
 
-        /* Zone 2 : Regional */
-        case 2:
+        case 2:   /* Regional */
             if (weight_kg <= 10.0) {
                 totalCost = 150.0;
             } else {
@@ -29,19 +27,19 @@ int main() {
             }
             break;
 
-        /* Zone 3 : International */
-        case 3:
+        case 3:   /* International */
             totalCost = 500.0;
             break;
 
-        /* Zone Code ไม่ถูกต้อง */
         default:
             printf("Invalid Zone Code\n");
             break;
     }
 
     if (totalCost > 0.0 || zoneCode > 3 || zoneCode < 1) {
-        printf("%.2f\n", totalCost);
+        if (zoneCode >= 1 && zoneCode <= 3) {
+            printf("%.2f\n", totalCost);
+        }
     }
 
     return 0;
