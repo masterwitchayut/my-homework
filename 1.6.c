@@ -1,27 +1,32 @@
 #include <stdio.h>
 
 int main() {
-    int number;
+    int inputVal;
+    int isInvalid;
 
     do {
+        // พิมพ์ข้อความรับค่าตามโจทย์
         printf("Enter a number (1-10): ");
         
-        // รับค่าตัวเลขจากผู้ใช้
-        if (scanf("%d", &number) != 1) {
-            // ป้องกันกรณีผู้ใช้พิมพ์ตัวอักษรเพื่อให้โปรแกรมไม่ค้าง
-            while(getchar() != '\n'); 
+        // ตรวจสอบการรับค่าตัวเลข
+        if (scanf("%d", &inputVal) != 1) {
+            while(getchar() != '\n'); // ล้างบัฟเฟอร์
+            isInvalid = 1; 
             continue;
         }
 
-        // เงื่อนไขข้อที่ 2: ถ้าตัวเลขไม่อยู่ในช่วง 1-10 ให้แสดง Error
-        if (number < 1 || number > 10) {
+        // ตรวจสอบเงื่อนไขช่วง 1-10
+        isInvalid = (inputVal < 1 || inputVal > 10);
+
+        if (isInvalid) {
+            // แสดง Error ตามเงื่อนไขข้อ 2
             printf("Error: Value must be 1-10.\n");
         }
 
-    } while (number < 1 || number > 10); // เงื่อนไขข้อที่ 1: วนซ้ำถ้าค่าน้อยกว่า 1 หรือมากกว่า 10
+    } while (isInvalid); // วนลูปตราบเท่าที่ค่าไม่ถูกต้องตามเงื่อนไขข้อ 1
 
-    // เงื่อนไขข้อที่ 3: แสดงผลเมื่อค่าถูกต้องแล้วจบการทำงาน
-    printf("Input accepted: %d\n", number);
+    // แสดงผลสำเร็จตามเงื่อนไขข้อ 3
+    printf("Input accepted: %d\n", inputVal);
 
     return 0;
 }
