@@ -3,37 +3,43 @@
 int main() {
     int categoryCode;
     float price_before_vat;
-    float totalBill = 0.0;
-    float vatAmount = 0.0;
-    float vatRate = 0.0;
+    float totalBill;
+    float vatAmount;
+    int validCategory;
 
-    /* รับข้อมูลราคาก่อนภาษี และรหัสหมวดหมู่ */
+    totalBill = 0.0;
+    vatAmount = 0.0;
+    validCategory = 1;
+
     if (scanf("%f %d", &price_before_vat, &categoryCode) != 2) {
         return 1;
     }
 
-    /* กำหนดอัตรา VAT ตามหมวดหมู่ */
+    /* คำนวณราคาสุทธิตามหมวดหมู่ */
     if (categoryCode == 1) {
-        vatRate = 0.07;
+        totalBill = price_before_vat + (price_before_vat * 0.07);
     }
     else if (categoryCode == 2) {
-        vatRate = 0.00;
+        totalBill = price_before_vat;
     }
     else if (categoryCode == 3) {
-        vatRate = 0.15;
+        totalBill = price_before_vat + (price_before_vat * 0.15);
+    }
+    else {
+        totalBill = 0.0;
+        validCategory = 0;
+    }
+
+    /* แสดงผลลัพธ์ */
+    if (validCategory == 1) {
+        vatAmount = totalBill - price_before_vat;
+        printf("VAT Amount: %.2f\n", vatAmount);
+        printf("Total Price: %.2f\n", totalBill);
     }
     else {
         printf("Invalid Category\n");
-        printf("Total Price: 0.00\n");
-        return 0;
+        printf("Total Price: %.2f\n", totalBill);
     }
-
-    /* คำนวณ VAT และราคาสุทธิ */
-    vatAmount = price_before_vat * vatRate;
-    totalBill = price_before_vat + vatAmount;
-
-    printf("VAT Amount: %.2f\n", vatAmount);
-    printf("Total Price: %.2f\n", totalBill);
 
     return 0;
 }
