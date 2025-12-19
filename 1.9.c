@@ -5,40 +5,42 @@ int main() {
     float weight_kg;
     float totalCost = 0.0;
 
-    // รับข้อมูล zoneCode และ weight_kg
     if (scanf("%d %f", &zoneCode, &weight_kg) != 2) {
         return 1;
     }
 
-    // ใช้ switch ในการตรวจสอบ zoneCode
     switch (zoneCode) {
-        case 1: // Local
-            if (weight_kg <= 5) {
+
+        /* Zone 1 : Local */
+        case 1:
+            if (weight_kg <= 5.0) {
                 totalCost = 50.0;
             } else {
                 totalCost = 80.0;
             }
             break;
 
-        case 2: // Regional
-            if (weight_kg <= 10) {
+        /* Zone 2 : Regional */
+        case 2:
+            if (weight_kg <= 10.0) {
                 totalCost = 150.0;
             } else {
                 totalCost = 250.0;
             }
             break;
 
-        case 3: // International
+        /* Zone 3 : International */
+        case 3:
             totalCost = 500.0;
             break;
 
+        /* Zone Code ไม่ถูกต้อง */
         default:
             printf("Invalid Zone Code\n");
-            return 0; // จบการทำงานทันทีถ้า zone ไม่ถูกต้อง
+            break;
     }
 
-    // แสดงผลลัพธ์ Total Cost (เฉพาะกรณีที่คำนวณค่าได้ถูกต้อง)
-    if (totalCost > 0.0) {
+    if (totalCost > 0.0 || zoneCode > 3 || zoneCode < 1) {
         printf("%.2f\n", totalCost);
     }
 
