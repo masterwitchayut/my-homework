@@ -3,14 +3,12 @@
 int main() {
     int dayCode, hour;
 
-    // รับข้อมูล dayCode และ hour
     if (scanf("%d %d", &dayCode, &hour) != 2) {
         return 1;
     }
 
-    // ใช้ switch ตรวจสอบ dayCode เป็นหลัก
     switch (dayCode) {
-        // กรณีวันจันทร์ถึงศุกร์ (1-5)
+        /* วันจันทร์ถึงศุกร์ */
         case 1:
         case 2:
         case 3:
@@ -23,13 +21,13 @@ int main() {
             }
             break;
 
-        // กรณีวันเสาร์และอาทิตย์ (6-7)
+        /* วันเสาร์และอาทิตย์ */
         case 6:
         case 7:
             printf("Weekend Relax Mode\n");
             break;
 
-        // กรณีอื่นๆ ที่ไม่ใช่ 1-7
+        /* รหัสวันไม่ถูกต้อง */
         default:
             printf("Invalid Day Code\n");
             break;
