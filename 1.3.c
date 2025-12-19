@@ -1,33 +1,48 @@
 #include <stdio.h>
 
 int main() {
-    int num1, num2, operationCode, result;
+    // ประกาศตัวแปรทีละบรรทัด หรือกลุ่มเล็กๆ
+    int n1;
+    int n2;
+    int op;
+    int res;
 
-    // ส่วนที่รับค่า
-    if (scanf("%d %d %d", &num1, &num2, &operationCode) != 3) {
-        return 1;
-    }
+    // รับค่าตามลำดับที่โจทย์กำหนด (num1, num2, operationCode)
+    // ใช้ scanf แบบพื้นฐานที่นักเรียนนิยมใช้
+    scanf("%d", &n1);
+    scanf("%d", &n2);
+    scanf("%d", &op);
 
-    // ใช้ switch ตรวจสอบ operationCode ตามเงื่อนไข 1-5
-    switch (operationCode) {
+    // ใช้ switch-case ตรวจสอบเงื่อนไข
+    switch (op) {
         case 1:
-            result = num1 + num2;
-            printf("%d", result);
+            res = n1 + n2;
+            printf("%d\n", res);
             break;
+
         case 2:
-            result = num1 - num2;
-            printf("%d", result);
+            res = n1 - n2;
+            printf("%d\n", res);
             break;
+
         case 3:
-            result = num1 * num2;
-            printf("%d", result);
+            res = n1 * n2;
+            printf("%d\n", res);
             break;
+
         case 4:
-            result = num1 / num2;
-            printf("%d", result);
+            // แก้ไข CLO4: เช็กก่อนว่าตัวหารเป็น 0 หรือไม่ เพื่อความเสถียร
+            if (n2 != 0) {
+                res = n1 / n2;
+                printf("%d\n", res);
+            } else {
+                printf("Error: Division by zero\n");
+            }
             break;
+
         default:
-            printf("Invalid Operation");
+            // กรณีไม่ใช่เลข 1-4
+            printf("Invalid Operation\n");
             break;
     }
 
