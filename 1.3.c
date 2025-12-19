@@ -1,31 +1,30 @@
 #include <stdio.h>
 
 int main() {
-    int num1, num2, operationCode;
+    int num1, num2, operationCode, result;
 
-    // รับค่าจาก user ตามลำดับ: num1, num2 และ operationCode
+    // ส่วนที่รับค่า
     if (scanf("%d %d %d", &num1, &num2, &operationCode) != 3) {
         return 1;
     }
 
-    // ใช้ switch ตรวจสอบเงื่อนไขตาม operationCode
+    // ใช้ switch ตรวจสอบ operationCode ตามเงื่อนไข 1-5
     switch (operationCode) {
         case 1:
-            printf("%d", num1 + num2);
+            result = num1 + num2;
+            printf("%d", result);
             break;
         case 2:
-            printf("%d", num1 - num2);
+            result = num1 - num2;
+            printf("%d", result);
             break;
         case 3:
-            printf("%d", num1 * num2);
+            result = num1 * num2;
+            printf("%d", result);
             break;
         case 4:
-            // ตรวจสอบเบื้องต้น: การหารด้วย 0 จะทำให้โปรแกรม error ได้
-            if (num2 != 0) {
-                printf("%d", num1 / num2);
-            } else {
-                printf("Error: Division by zero");
-            }
+            result = num1 / num2;
+            printf("%d", result);
             break;
         default:
             printf("Invalid Operation");
