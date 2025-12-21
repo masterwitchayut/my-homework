@@ -10,7 +10,6 @@ float calculateMonthlyTotal() {
 
     while (dailyDeposit != 0.00) {
         total = total + dailyDeposit;
-        
         if (scanf("%f", &dailyDeposit) != 1) {
             break;
         }
@@ -30,15 +29,14 @@ int main() {
 
     for (month = 1; month <= N_MONTHS; month++) {
         monthlyTotal = calculateMonthlyTotal();
-
+        
         printf("Month %d Total: %.2f\n", month, monthlyTotal);
-
+        
         if (monthlyTotal >= 500.00) {
             successCount++;
         }
     }
 
     printf("Success Count: %d\n", successCount);
-
     return 0;
 }
