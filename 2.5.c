@@ -2,41 +2,50 @@
 
 int main() {
     int score;
-    // สร้างตัวแปรไว้นับจำนวนนักเรียนในแต่ละเกรด เริ่มต้นที่ 0
-    int countA = 0, countB = 0, countC = 0, countD = 0, countF = 0;
+    // CLO 3: แยกบรรทัดเพื่อให้ตรวจสอบและอ่านง่ายขึ้น
+    int countA = 0;
+    int countB = 0;
+    int countC = 0;
+    int countD = 0;
+    int countF = 0;
 
-    printf("Enter student scores (Enter -1 to stop):\n");
+    // รับค่าครั้งแรกก่อนเข้า Loop (ตามโครงสร้าง Pre-code)
+    if (scanf("%d", &score) != 1) {
+        return 1;
+    }
 
-    while (1) {
-        printf("Score: ");
-        scanf("%d", &score);
-
-        // ตรวจสอบค่า Sentinel (-1) เพื่อออกจาก loop
-        if (score == -1) {
-            break;
-        }
-
-        // ตรวจสอบเงื่อนไขการให้เกรดและเพิ่มจำนวนนับ
+    // เงื่อนไข Sentinel คือ -1
+    while (score != -1) {
+        
+        // ตรวจสอบเงื่อนไขการให้เกรด
         if (score >= 80) {
             countA++;
-        } else if (score >= 70) {
+        } 
+        else if (score >= 70) {
             countB++;
-        } else if (score >= 60) {
+        } 
+        else if (score >= 60) {
             countC++;
-        } else if (score >= 50) {
+        } 
+        else if (score >= 50) {
             countD++;
-        } else {
+        } 
+        else {
             countF++;
+        }
+
+        // รับค่าคะแนนถัดไปที่ท้าย Loop (ตามโครงสร้าง Pre-code)
+        if (scanf("%d", &score) != 1) {
+            break;
         }
     }
 
-    // แสดงผลลัพธ์สรุปจำนวนนักเรียนในแต่ละเกรด
-    printf("\n--- Summary Results ---\n");
-    printf("Grade A: %d\n", countA);
-    printf("Grade B: %d\n", countB);
-    printf("Grade C: %d\n", countC);
-    printf("Grade D: %d\n", countD);
-    printf("Grade F: %d\n", countF);
+    // แสดงผลลัพธ์
+    printf("Grade A Count: %d\n", countA);
+    printf("Grade B Count: %d\n", countB);
+    printf("Grade C Count: %d\n", countC);
+    printf("Grade D Count: %d\n", countD);
+    printf("Grade F Count: %d\n", countF);
 
     return 0;
 }
