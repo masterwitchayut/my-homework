@@ -1,5 +1,38 @@
 #include <stdio.h>
 
+void processCommand(int cmdCode, int quantity,
+                    int *currentStock,
+                    float PENALTY_FEE,
+                    float *totalPenalties) {
+
+    if (cmdCode == 1) {
+        *currentStock += quantity;
+        printf("Received %d units.\n", quantity);
+    }
+    else if (cmdCode == 2) {
+
+        if (quantity <= 0) {
+            printf("Error: Quantity must be positive.\n");
+        }
+        else if (quantity <= *currentStock) {
+            *currentStock -= quantity;
+            printf("Shipped %d units.\n", quantity);
+        }
+        else {
+            *totalPenalties += PENALTY_FEE;
+            printf("FAILURE: Insufficient stock. PENALTY %.2f added.\n",
+                   PENALTY_FEE);
+        }
+    }
+    else if (cmdCode == 3) {
+        printf("Stock left: %d units\n", *currentStock);
+        printf("Total Penalties: %.2f\n", *totalPenalties);
+    }
+    else {
+        printf("Error: Invalid Command.\n");
+    }
+}
+
 int main() {
     int initialStock, N, cmdCode, quantity, i;
     float PENALTY_FEE;
@@ -9,6 +42,7 @@ int main() {
     if (scanf("%d %f %d", &initialStock, &PENALTY_FEE, &N) != 3) {
         return 1;
     }
+
     currentStock = initialStock;
 
     for (i = 0; i < N; i++) {
@@ -16,34 +50,10 @@ int main() {
             break;
         }
 
-        // ใช้ switch ตามเงื่อนไขโจทย์
-        switch (cmdCode) {
-            case 1: // รับสินค้าเข้า
-                currentStock = currentStock + quantity;
-                printf("Received %d units.\n", quantity);
-                break;
-
-            case 2: // เบิกสินค้าออก
-                if (quantity <= 0) {
-                    printf("Error: Quantity must be positive.\n");
-                } else if (quantity <= currentStock) {
-                    currentStock = currentStock - quantity;
-                    printf("Shipped %d units.\n", quantity);
-                } else {
-                    // สินค้าไม่พอ: คิดค่าปรับ
-                    totalPenalties = totalPenalties + PENALTY_FEE;
-                    printf("FAILURE: Insufficient stock. PENALTY %.2f added.\n", PENALTY_FEE);
-                }
-                break;
-
-            case 3: // ตรวจสอบสถานะ
-                printf("Current Stock: %d, Total Penalties: %.2f\n", currentStock, totalPenalties);
-                break;
-
-            default: // รหัสอื่นๆ
-                printf("Error: Invalid Command.\n");
-                break;
-        }
+        processCommand(cmdCode, quantity,
+                       &currentStock,
+                       PENALTY_FEE,
+                       &totalPenalties);
     }
 
     return 0;
