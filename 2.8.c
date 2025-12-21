@@ -1,56 +1,60 @@
 #include <stdio.h>
 
-// ฟังก์ชันสำหรับตรวจสอบสถานะและพิมพ์ผลลัพธ์
-void checkStatus(int studentId, int score, float attendance, int *passCount, int *failCount) {
-    int scorePass = (score >= 50);
-    int attendancePass = (attendance >= 75.0);
+void checkResult(int studentId, int score, float attendancePercent,
+                 int *passCount, int *failCount)
+{
 
-    printf("Student ID: %d -> ", studentId);
+    printf("Student ID %d: ", studentId);
 
-    if (scorePass && attendancePass) {
+    if (score >= 50 && attendancePercent >= 75)
+    {
         printf("PASS\n");
         (*passCount)++;
-    } else {
-        printf("FAIL (Reason: ");
-        if (!scorePass && !attendancePass) {
+    }
+    else
+    {
+        printf("FAIL (");
+
+        if (score < 50 && attendancePercent < 75)
+        {
             printf("Both Score and Attendance");
-        } else if (!scorePass) {
+        }
+        else if (score < 50)
+        {
             printf("Score");
-        } else {
+        }
+        else
+        {
             printf("Attendance");
         }
+
         printf(")\n");
         (*failCount)++;
     }
 }
 
-int main() {
+int main()
+{
     int N, i;
     int studentId, score, totalClasses, absentClasses;
     float attendancePercent;
     int passCount = 0;
     int failCount = 0;
 
-    // รับจำนวนนักเรียน
-    if (scanf("%d", &N) != 1) {
-        return 1;
+    scanf("%d", &N);
+
+    for (i = 0; i < N; i++)
+    {
+        scanf("%d %d %d %d",
+              &studentId, &score, &totalClasses, &absentClasses);
+
+        attendancePercent =
+            (float)(totalClasses - absentClasses) / totalClasses * 100.0;
+
+        checkResult(studentId, score, attendancePercent,
+                    &passCount, &failCount);
     }
 
-    for (i = 0; i < N; i++) {
-        // รับข้อมูล 4 ค่าต่อคน
-        if (scanf("%d %d %d %d", &studentId, &score, &totalClasses, &absentClasses) != 4) {
-            break;
-        }
-
-        // คำนวณเปอร์เซ็นต์การเข้าเรียน
-        // สูตร: ((คาบทั้งหมด - ขาด) / คาบทั้งหมด) * 100
-        attendancePercent = (float)(totalClasses - absentClasses) / totalClasses * 100.0;
-
-        // เรียกใช้ฟังก์ชันเพื่อตรวจสอบและแสดงผล
-        checkStatus(studentId, score, attendancePercent, &passCount, &failCount);
-    }
-
-    // แสดงผลสรุปตอนท้าย
     printf("\n--- Summary ---\n");
     printf("Total PASS: %d\n", passCount);
     printf("Total FAIL: %d\n", failCount);
