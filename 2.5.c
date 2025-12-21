@@ -2,31 +2,44 @@
 
 int main() {
     int score;
-    int countA = 0, countB = 0, countC = 0, countD = 0, countF = 0;
+    int countA = 0;
+    int countB = 0;
+    int countC = 0;
+    int countD = 0;
+    int countF = 0;
 
+    /* รับค่าคะแนนครั้งแรก */
     if (scanf("%d", &score) != 1) {
         return 1;
     }
 
+    /* ใช้ -1 เป็น sentinel เพื่อหยุดการทำงาน */
     while (score != -1) {
 
+        /* ตรวจสอบช่วงคะแนนเพื่อจัดเกรด */
         if (score >= 80) {
             countA++;
-        } else if (score >= 70) {
+        } 
+        else if (score >= 70) {
             countB++;
-        } else if (score >= 60) {
+        } 
+        else if (score >= 60) {
             countC++;
-        } else if (score >= 50) {
+        } 
+        else if (score >= 50) {
             countD++;
-        } else {
+        } 
+        else {
             countF++;
         }
 
+        /* รับค่าคะแนนถัดไป */
         if (scanf("%d", &score) != 1) {
             break;
         }
     }
 
+    /* แสดงผลจำนวนของนักเรียนในแต่ละเกรด */
     printf("Grade A Count: %d\n", countA);
     printf("Grade B Count: %d\n", countB);
     printf("Grade C Count: %d\n", countC);
