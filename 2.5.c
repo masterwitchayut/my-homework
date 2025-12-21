@@ -9,7 +9,7 @@ int main() {
     }
 
     while (score != -1) {
-        // ตรวจสอบเกรดตามเงื่อนไข
+
         if (score >= 80) {
             countA++;
         } else if (score >= 70) {
@@ -22,7 +22,6 @@ int main() {
             countF++;
         }
 
-        // รับค่าคะแนนตัวถัดไปก่อนวนลูปใหม่
         if (scanf("%d", &score) != 1) {
             break;
         }
