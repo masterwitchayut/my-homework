@@ -8,8 +8,8 @@ int main() {
     int total_sum = 0;
     int i, j;
 
-    // 1. การรับข้อมูล (Input)
     printf("Enter %d integer numbers for the 2x4 matrix:\n", ROWS * COLS);
+
     for (i = 0; i < ROWS; i++) {
         for (j = 0; j < COLS; j++) {
             printf("Enter element for Row %d, Col %d: ", i, j);
@@ -17,14 +17,12 @@ int main() {
         }
     }
 
-    // 2. การวิเคราะห์ข้อมูล (Analysis - Accumulation)
     for (i = 0; i < ROWS; i++) {
         for (j = 0; j < COLS; j++) {
             total_sum += matrix[i][j];
         }
     }
 
-    // 3. การแสดงผลลัพธ์ (Report)
     printf("\n--- 2D ARRAY SUMMATION REPORT ---\n");
     printf("Recorded Matrix (2x4):\n");
 
