@@ -1,40 +1,54 @@
 #include <stdio.h>
 
-#define DAYS 7
+struct Campaign {
+    char name[50];
+    float productPrice;
+    int salesCount;
+    float adSpend;
+};
+
+float getCommissionRate(int salesCount) {
+    if (salesCount >= 20) {
+        return 0.20;
+    } else if (salesCount >= 10) {
+        return 0.15;
+    } else {
+        return 0.10;
+    }
+}
+
+void processCampaign(struct Campaign c) {
+    float commissionRate = getCommissionRate(c.salesCount);
+    float totalRevenue = c.salesCount * c.productPrice;
+    float totalCommission = totalRevenue * commissionRate;
+    float netProfitLoss = totalCommission - c.adSpend;
+
+    printf("--- Campaign: %s ---\n", c.name);
+    printf("Sales: %d, Ad Spend: %.2f\n", c.salesCount, c.adSpend);
+    printf("Rate Used: %.0f%%\n", commissionRate * 100);
+    printf("Calculation: (%.2f * %.0f%%) - %.2f = %.2f\n", 
+            totalRevenue, commissionRate * 100, c.adSpend, netProfitLoss);
+    printf("Net Result: %.2f\n", netProfitLoss);
+}
 
 int main() {
-    int daily_temp[DAYS];
-    int max_temp;
-    int i;
+    int N, i;
 
-    // 1. รับข้อมูลอุณหภูมิ 7 วัน
-    for (i = 0; i < DAYS; i++) {
-        scanf("%d", &daily_temp[i]);
+    if (scanf("%d", &N) != 1) {
+        return 1;
     }
 
-    // 2. วิเคราะห์หาอุณหภูมิสูงสุด (Maximum Temperature)
-    max_temp = daily_temp[0];
-    for (i = 1; i < DAYS; i++) {
-        if (daily_temp[i] > max_temp) {
-            max_temp = daily_temp[i];
+    struct Campaign campaigns[N];
+
+    for (i = 0; i < N; i++) {
+        if (scanf("%s %f %d %f", campaigns[i].name, &campaigns[i].productPrice, 
+                  &campaigns[i].salesCount, &campaigns[i].adSpend) != 4) {
+            return 1;
         }
     }
 
-    // 3. แสดงผลลัพธ์ (Report)
-    printf("\n--- DAILY TEMPERATURE REPORT ---\n");
-    printf("Recorded Temperatures (C): ");
-    for (i = 0; i < DAYS; i++) {
-        printf("%d ", daily_temp[i]);
-    }
-    printf("\n");
-
-    printf("Maximum Temperature Found: %d C\n", max_temp);
-
-    // ตรวจสอบเงื่อนไขสรุปสภาพอากาศ
-    if (max_temp >= 35) {
-        printf("Weather is HOT!\n");
-    } else {
-        printf("Weather is MODERATE.\n");
+    for (i = 0; i < N; i++) {
+        processCampaign(campaigns[i]);
     }
 
     return 0;
