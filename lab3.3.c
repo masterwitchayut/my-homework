@@ -7,25 +7,31 @@ struct student {
     float gpa;
 };
 
-// ฟังก์ชันรับค่า struct เข้าไป และ return struct ที่แก้ไขแล้วกลับออกมา
-struct student upgrade( struct student child ) {
-    if (child.sex == 'M') {
-        child.gpa = child.gpa * 1.10; // เพิ่ม 10%
-    } else if (child.sex == 'F') {
-        child.gpa = child.gpa * 1.20; // เพิ่ม 20%
+void GetStudent( struct student child[][ 10 ], int *room ) {
+    printf("Enter number of rooms: ");
+    scanf("%d", room);
+
+    for (int i = 0; i < *room; i++) {
+        printf("--- Room %d ---\n", i + 1);
+        for (int j = 0; j < 10; j++) {
+            printf("Student %d name: ", j + 1);
+            scanf("%s", child[i][j].name);
+            printf("Student %d age: ", j + 1);
+            scanf("%d", &child[i][j].age);
+            printf("Student %d sex (M/F): ", j + 1);
+            scanf(" %c", &child[i][j].sex);
+            printf("Student %d gpa: ", j + 1);
+            scanf("%f", &child[i][j].gpa);
+        }
     }
-    return child; // ส่ง struct ที่แก้ไขแล้วกลับไป
 }
 
 int main() {
-    struct student aboy;
-    aboy.sex = 'M';
-    aboy.gpa = 3.00;
-
-    // เรียกใช้ฟังก์ชันโดยนำค่าที่ return มาเก็บไว้ในตัวแปรเดิม
-    aboy = upgrade( aboy );
-
-    printf( "%.2f", aboy.gpa );
-
+    struct student children[ 20 ][ 10 ];
+    int group;
+    
+    
+    GetStudent( children, &group );
+    
     return 0;
 }
