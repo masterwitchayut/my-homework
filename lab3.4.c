@@ -1,30 +1,41 @@
 #include <stdio.h>
 
 struct student {
-    char name[ 20 ];
+    char name[20];
     int age;
-    char sex;
     float gpa;
 };
 
-// ฟังก์ชันสำหรับเพิ่ม GPA ตามเงื่อนไขเพศ
-struct student upgrade( struct student child ) {
-    if (child.sex == 'M') {
-        child.gpa = child.gpa * 1.10; // เพิ่ม 10% สำหรับผู้ชาย
-    } else if (child.sex == 'F') {
-        child.gpa = child.gpa * 1.20; // เพิ่ม 20% สำหรับผู้หญิง
-    }
-    return child; // คืนค่า struct ที่แก้ไขแล้ว
-}
+void GetStudent(struct student child[][10], int *room);
 
 int main() {
-    struct student aboy;
-    aboy.sex = 'M';
-    aboy.gpa = 3.00;
+    struct student children[20][10];
+    int group;
 
-    // เรียกใช้ฟังก์ชันและเก็บค่ากลับมาที่ตัวแปรเดิม
-    aboy = upgrade( aboy );
+    GetStudent(children, &group);
 
-    printf( "%.2f", aboy.gpa ); // ผลลัพธ์จะเป็น 3.30
     return 0;
+}
+
+void GetStudent(struct student child[][10], int *room) {
+    int i, j;
+
+    printf("Enter number of rooms: ");
+    scanf("%d", room);
+
+    for (i = 0; i < *room; i++) {
+        printf("Room %d\n", i + 1);
+        for (j = 0; j < 10; j++) {
+            printf("Student %d\n", j + 1);
+
+            printf("Name: ");
+            scanf("%s", child[i][j].name);
+
+            printf("Age: ");
+            scanf("%d", &child[i][j].age);
+
+            printf("GPA: ");
+            scanf("%f", &child[i][j].gpa);
+        }
+    }
 }
