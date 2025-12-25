@@ -1,12 +1,29 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 struct student {
-    char name[20];
-    int age;
-    float gpa;
+    int id;
+    char name[50];
 };
 
-struct student (*GetStudent(int *room))[10];
+struct student (*GetStudent(int *room))[10] {
+    printf("Enter number of rooms: ");
+    scanf("%d", room);
+
+    // จองหน่วยความจำสำหรับจำนวนห้องที่ระบุ โดยแต่ละห้องมีนักเรียน 10 คน
+    struct student (*data)[10] = malloc(sizeof(struct student[10]) * (*room));
+
+    for (int i = 0; i < *room; i++) {
+        printf("--- Room %d ---\n", i + 1);
+        for (int j = 0; j < 10; j++) {
+            printf("Student %d ID: ", j + 1);
+            scanf("%d", &data[i][j].id);
+            printf("Student %d Name: ", j + 1);
+            scanf("%s", data[i][j].name);
+        }
+    }
+    return data;
+}
 
 int main() {
     struct student (*children)[10];
@@ -14,31 +31,10 @@ int main() {
 
     children = GetStudent(&group);
 
-    return 0;
-}
-
-struct student (*GetStudent(int *room))[10] {
-    int i, j;
-    static struct student child[20][10];  // ใช้ static แทน malloc
-
-    printf("Enter number of rooms: ");
-    scanf("%d", room);
-
-    for (i = 0; i < *room; i++) {
-        printf("Room %d\n", i + 1);
-        for (j = 0; j < 10; j++) {
-            printf("Student %d\n", j + 1);
-
-            printf("Name: ");
-            scanf("%s", child[i][j].name);
-
-            printf("Age: ");
-            scanf("%d", &child[i][j].age);
-
-            printf("GPA: ");
-            scanf("%f", &child[i][j].gpa);
-        }
+    // ส่วนการคืนหน่วยความจำ (Optional)
+    if (children != NULL) {
+        free(children);
     }
 
-    return child;
+    return 0;
 }
