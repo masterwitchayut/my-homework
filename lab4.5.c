@@ -8,17 +8,15 @@ struct studentNode {
     struct studentNode *next ;
 } ;
 
-// จองหน่วยความจำแบบ Static สำหรับ Node
 struct studentNode pool[ 10 ] ;
 int p_idx = 0 ;
 
 void saveNode( struct studentNode *child, char n[], int a, char s, float g ) ;
-void GoNext2( struct studentNode ***walk ) ;
+void GoNext2( struct studentNode **walk ) ;
 
 int main() {
     struct studentNode *start, *now1, **now2 ;
     
-    // สร้าง Linked List 4 โหนด
     start = &pool[ p_idx++ ] ;
     saveNode( start, "one", 6, 'M', 3.11 ) ;
 
@@ -33,10 +31,9 @@ int main() {
     start->next->next->next->next = NULL ;
 
     now1 = start ;
-    now2 = &now1 ; // ให้ now2 ชี้ไปที่ now1
+    now2 = &now1 ;
 
-    // เรียกฟังก์ชันโดยส่ง Address ของ now2 ไป (เป็น Pointer 3 ระดับ)
-    GoNext2( &now2 ) ;
+    GoNext2( now2 ) ;
     printf( "%s ", ( *now2 )->name ) ;
 
     return 0 ;
@@ -54,11 +51,9 @@ void saveNode( struct studentNode *child, char n[], int a, char s, float g ) {
     child->gpa = g ;
 }
 
-void GoNext2( struct studentNode ***walk ) {
-    // ตรวจสอบว่า Pointer 2 ระดับ (*walk) และ Node ปัจจุบัน (**walk) ไม่เป็น NULL
-    if ( *walk != NULL && ( **walk ) != NULL && ( **walk )->next != NULL ) {
-        // ขยับการชี้ของ Pointer 2 ระดับไปยังโหนดถัดไป
-        **walk = ( **walk )->next ;
-        printf( "%s ", ( **walk )->name ) ;
+void GoNext2( struct studentNode **walk ) {
+    if ( *walk != NULL && ( *walk )->next != NULL ) {
+        *walk = ( *walk )->next ;
+        printf( "%s ", ( *walk )->name ) ;
     }
 }
