@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int *Dijkstra( int *L, int n );
+int *Dijkstra( int *L, int n ) ;
 
 int main() {
     int n = 5, i = 0, j = 0, *d ;
-    int g[25] ; // ใช้ Array ขนาดคงที่ (5x5) แทนการใช้ new หรือ malloc
+    int g[ 25 ] ;
     
     for( i = 0 ; i < n ; i++ )
         for( j = 0 ; j < n ; j++ )
@@ -22,46 +22,45 @@ int main() {
     return 0 ;
 }
 
-int *Dijkstra(int *L, int n) {
-    static int distance[100]; 
-    int visited[100];
-    int INF = 999999;
+int *Dijkstra( int *L, int n ) {
+    static int dist[ 100 ] ;
+    int visited[ 100 ] ;
+    int INF = 999999 ;
 
-    for (int i = 0; i < n; i++) {
-        distance[i] = INF;
-        visited[i] = 0;
+    for ( int i = 0 ; i < n ; i++ ) {
+        dist[ i ] = INF ;
+        visited[ i ] = 0 ;
     }
 
-    distance[0] = 0;
+    dist[ 0 ] = 0 ;
 
-    for (int count = 0; count < n; count++) {
-        int min = INF;
-        int u = -1;
+    for ( int count = 0 ; count < n ; count++ ) {
+        int min = INF, u = -1 ;
 
-        for (int i = 0; i < n; i++) {
-            if (!visited[i] && distance[i] < min) {
-                min = distance[i];
-                u = i;
+        for ( int i = 0 ; i < n ; i++ ) {
+            if ( !visited[ i ] && dist[ i ] < min ) {
+                min = dist[ i ] ;
+                u = i ;
             }
         }
 
-        if (u == -1) break;
-        visited[u] = 1;
+        if ( u == -1 ) break ;
+        visited[ u ] = 1 ;
 
-        for (int v = 0; v < n; v++) {
-            int weight = L[u * n + v];
-            if (!visited[v] && weight != -1) {
-                if (distance[u] + weight < distance[v]) {
-                    distance[v] = distance[u] + weight;
+        for ( int v = 0 ; v < n ; v++ ) {
+            int weight = L[ u * n + v ] ;
+            if ( !visited[ v ] && weight != -1 ) {
+                if ( dist[ u ] + weight < dist[ v ] ) {
+                    dist[ v ] = dist[ u ] + weight ;
                 }
             }
         }
     }
 
-    static int result[100];
-    for (int i = 0; i < n - 1; i++) {
-        result[i] = distance[i + 1];
+    static int result[ 100 ] ;
+    for ( int i = 0 ; i < n - 1 ; i++ ) {
+        result[ i ] = dist[ i + 1 ] ;
     }
 
-    return result;
+    return result ;
 }
